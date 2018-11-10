@@ -83,13 +83,14 @@ vEB_Node *vEB_tree_insert(vEB_Node *node, lo x, lo cnt)
                     node->summary = new vEB_Node(node->u);
                 }
                 // derr(node->summary);
-                node->summary = vEB_tree_insert(node->summary, node->high(x), cnt);
+                node->summary = vEB_tree_insert(node->summary, node->high(x), 1);
                 node->cluster[node->high(x)] = new vEB_Node(node->u);
                 // derr(node->cluster[node->high(x)]);
                 node->cluster[node->high(x)] = vEB_empty_tree_insert(node->cluster[node->high(x)], node->low(x), cnt);
             }
             else
             {
+                // node->summary = vEB_tree_insert(node->summary, node->high(x), cnt);
                 node->cluster[node->high(x)] = vEB_tree_insert(node->cluster[node->high(x)], node->low(x), cnt);
             }
         }
@@ -106,7 +107,7 @@ vEB_Node *vEB_tree_delete(vEB_Node *node, lo x, lo cnt)
 {
     if (node == NULL)
         return node;
-    // debug6(node, node->u,node->min_elem,node->min_cnt, node->max_elem, node->max_cnt);
+    debug7(x,cnt,node->u,node->min_elem,node->min_cnt, node->max_elem, node->max_cnt);
     if (node->min_elem == node->max_elem)
     {
         node->min_cnt -= cnt;
@@ -156,7 +157,7 @@ vEB_Node *vEB_tree_delete(vEB_Node *node, lo x, lo cnt)
                 return node;
             }
             auto first_cluster = vEB_tree_min(node->summary);
-            // debug(first_cluster);
+            debug(first_cluster);
             node->min_cnt = vEB_tree_min_cnt(node->cluster[first_cluster]);
             x = node->cnt(first_cluster, vEB_tree_min(node->cluster[first_cluster]));
             node->min_elem = x;
@@ -168,7 +169,7 @@ vEB_Node *vEB_tree_delete(vEB_Node *node, lo x, lo cnt)
         node->cluster[node->high(x)] = vEB_tree_delete(node->cluster[node->high(x)], node->low(x), cnt);
         if (node->cluster[node->high(x)] == NULL)
         {
-            node->summary = vEB_tree_delete(node->summary, node->high(x), cnt);
+            node->summary = vEB_tree_delete(node->summary, node->high(x), 1);
             if (x == node->max_elem)
             {
                 auto summary_max = vEB_tree_max(node->summary);
@@ -184,14 +185,18 @@ vEB_Node *vEB_tree_delete(vEB_Node *node, lo x, lo cnt)
                 }
             }
         }
-        else if (x == node->max_elem and node->max_elem != node->min_elem)
+        else if (x == node->max_elem and node->max_elem!= node->min_elem)
         {
             node->max_cnt -= cnt;
             if (node->max_cnt <= 0)
             {
                 node->max_elem = node->cnt(node->high(x), vEB_tree_max(node->cluster[node->high(x)]));
-                node->max_cnt = vEB_tree_max(node->cluster[node->high(x)]);
+                node->max_cnt = vEB_tree_max_cnt(node->cluster[node->high(x)]);
             }
+        }
+        if(node->max_elem == LLONG_MAX){
+            node->max_elem = node->min_elem;
+            node->max_cnt = node->min_cnt;
         }
     }
     return node;

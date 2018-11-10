@@ -75,15 +75,16 @@ int main()
 
     cerr << "##########    RB Tree    #######" << endl;
     start = std::chrono::system_clock::now();
-    red_black_tree rb_tree;
+    multiset<lo> rb_tree;
     TRV(edges)
     {
-        rb_tree.Insert(it.wieght);
+        rb_tree.insert(it.wieght);
     }
     ans = 0;
     while (!rb_tree.empty())
     {
-        auto w = rb_tree.extract_min();
+        auto w = *rb_tree.begin();
+        rb_tree.erase(rb_tree.begin());
         auto edge_to_relax = edges_RB[w].back();
         edges_RB[w].pop_back();
         if (!rb_set.is_sameSet(edge_to_relax.X, edge_to_relax.Y))

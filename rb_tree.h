@@ -50,5 +50,5 @@ struct red_black_tree
     void traverse(RB_Node *node);
     bool empty();
     lo max_elem(RB_Node *node);
-    lo successor(RB_Node* node);
+    lo successor(RB_Node *node);
 };

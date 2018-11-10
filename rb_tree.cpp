@@ -443,6 +443,8 @@ void red_black_tree ::traverse(RB_Node *node)
     if (!node)
         return;
     debug5(node->data, node->color, node->left->data, node->right->data, node->par->data);
+    // cout<<"data = "<<node->data<<"\tleft = "<<node->left->data<<"\tright = "<<node->right->data;
+    // cout<<"\tcolor = "<<node->color<<endl;
     if (node->left != this->LEAF)
     {
         traverse(node->left);

@@ -6,14 +6,14 @@ enum COLOR
 };
 struct RB_Node
 {
-    lo data;
+    long long data;
     bool leaf;
-    lo black_height;
-    COLOR color;
+    long long black_height;
+    COLOR colong longr;
     RB_Node *par;
     RB_Node *left;
     RB_Node *right;
-    RB_Node(lo);
+    RB_Node(long long);
 };
 struct red_black_tree
 {
@@ -32,7 +32,7 @@ struct red_black_tree
     void insert_case2(RB_Node *);
     void insert_case3(RB_Node *);
     void insert_case4(RB_Node *);
-    void Insert(lo n);
+    void Insert(long long n);
     red_black_tree();
     void replace_node(RB_Node *node, RB_Node *child);
     void delete_one_child(RB_Node *node);
@@ -42,13 +42,13 @@ struct red_black_tree
     void delete_case4(RB_Node *node);
     void delete_case5(RB_Node *node);
     void delete_case6(RB_Node *node);
-    lo extract_min();
-    lo min_elem(RB_Node *node);
-    lo predecessor(RB_Node *node);
-    void erase(RB_Node *node, lo n);
-    void Erase(lo n);
+    long long extract_min();
+    long long min_elem(RB_Node *node);
+    long long predecessor(RB_Node *node);
+    void erase(RB_Node *node, long long n);
+    void Erase(long long n);
     void traverse(RB_Node *node);
     bool empty();
-    lo max_elem(RB_Node *node);
-    lo successor(RB_Node* node);
+    long long max_elem(RB_Node *node);
+    long long successor(RB_Node* node);
 };

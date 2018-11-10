@@ -3,9 +3,9 @@
 #include "vEB_tree.h"
 struct Edges
 {
-    lo u, v;
-    lo wieght;
-    Edges(lo u, lo v, lo w)
+    long long u, v;
+    long long wieght;
+    Edges(long long u, long long v, long long w)
     {
         this->u = u;
         this->v = v;
@@ -15,22 +15,22 @@ struct Edges
 struct UnionFind
 {
     vl pset; // 1000 is just an initial number, it is user-adjustable.
-    UnionFind(lo _size)
+    UnionFind(long long _size)
     {
         pset.resize(_size + 2);
         REP(0, _size+2)
         pset[i] = i;
     }
-    lo find_set(lo i) { return (pset[i] == i) ? i : (pset[i] = find_set(pset[i])); }
-    void union_set(lo i, lo j) { pset[find_set(i)] = find_set(j); }
-    bool is_sameSet(lo i, lo j) { return find_set(i) == find_set(j); }
+    long long find_set(long long i) { return (pset[i] == i) ? i : (pset[i] = find_set(pset[i])); }
+    void union_set(long long i, long long j) { pset[find_set(i)] = find_set(j); }
+    bool is_sameSet(long long i, long long j) { return find_set(i) == find_set(j); }
 };
-lo const N = 65536;
-lo const WEIGHT = 100000;
+long long const N = 65536;
+long long const WEIGHT = 100000;
 int main()
 {
     cerr << "Enter the number of vertices : ";
-    lo n, m;
+    long long n, m;
     cin >> n ;
     cerr<<"Eneter number of edges : ";
     cin>> m;
@@ -38,9 +38,9 @@ int main()
     vector<vector<ll>> edges_avl(N), edges_vEB(N), edges_RB(N);
     REP(0, m)
     {
-        lo u = rand() % n + 1;
-        lo v = rand() % n + 1;
-        lo w = rand() % (N-100) + 1;
+        long long u = rand() % n + 1;
+        long long v = rand() % n + 1;
+        long long w = rand() % (N-100) + 1;
         edges.pb(Edges(u, v, w));
         edges_avl[w].pb(mp(u, v));
         edges_vEB[w].pb(mp(u, v));
@@ -48,13 +48,13 @@ int main()
     }
     UnionFind avl_set(n), rb_set(n), vEB_set(n);
     cerr << "##########    AVL    #######" << endl;
-    auto start = std::chrono::system_clock::now();
+    auto start = std::chrono::system_clong longck::now();
     AVL avl_tree;
     TRV(edges)
     {
         avl_tree.insert(it.wieght);
     }
-    lo ans = 0;
+    long long ans = 0;
     while (!avl_tree.empty())
     {
         auto w = avl_tree.Kth_minimum(1);
@@ -69,12 +69,12 @@ int main()
             avl_set.union_set(edge_to_relax.X, edge_to_relax.Y);
         }
     }
-    auto end = std::chrono::system_clock::now();
+    auto end = std::chrono::system_clong longck::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cerr << ans << " " << elapsed.count() << '\n';
 
     cerr << "##########    RB Tree    #######" << endl;
-    start = std::chrono::system_clock::now();
+    start = std::chrono::system_clong longck::now();
     red_black_tree rb_tree;
     TRV(edges)
     {
@@ -92,12 +92,12 @@ int main()
             rb_set.union_set(edge_to_relax.X, edge_to_relax.Y);
         }
     }
-    end = std::chrono::system_clock::now();
+    end = std::chrono::system_clong longck::now();
     elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cerr << ans << " " << elapsed.count() << '\n';
 
     cerr << "##########    vEB Tree    #######" << endl;
-    start = std::chrono::system_clock::now();
+    start = std::chrono::system_clong longck::now();
     auto root = new vEB_Node(N*N);
     TRV(edges)
     {
@@ -117,7 +117,7 @@ int main()
             vEB_set.union_set(edge_to_relax.X, edge_to_relax.Y);
         }
     }
-    end = std::chrono::system_clock::now();
+    end = std::chrono::system_clong longck::now();
     elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cerr << ans << " " << elapsed.count() << '\n';
     return 0;

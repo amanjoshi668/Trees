@@ -1,9 +1,9 @@
 #include "rb_tree.h"
-RB_Node ::RB_Node(lo d)
+RB_Node ::RB_Node(long long d)
 {
     this->data = d;
     this->leaf = true;
-    this->color = RED;
+    this->colong longr = RED;
     this->black_height = 1;
     this->par = this->left = this->right = NULL;
 }
@@ -11,19 +11,19 @@ bool red_black_tree ::empty()
 {
     return this->root == NULL or this->root == this->LEAF;
 }
-lo red_black_tree ::predecessor(RB_Node *node)
+long long red_black_tree ::predecessor(RB_Node *node)
 {
     return this->min_elem(node->right);
 }
-lo red_black_tree ::successor(RB_Node *node)
+long long red_black_tree ::successor(RB_Node *node)
 {
     return this->max_elem(node->left);
 }
-void red_black_tree ::Erase(lo x)
+void red_black_tree ::Erase(long long x)
 {
     this->erase(this->root, x);
 }
-void red_black_tree ::erase(RB_Node *node, lo n)
+void red_black_tree ::erase(RB_Node *node, long long n)
 {
     if (node->left == this->LEAF and node->right == this->LEAF)
     {
@@ -49,7 +49,7 @@ void red_black_tree ::erase(RB_Node *node, lo n)
     }
     // return node;
 }
-lo red_black_tree ::min_elem(RB_Node *node)
+long long red_black_tree ::min_elem(RB_Node *node)
 {
     if (node == NULL)
         return -1;
@@ -57,7 +57,7 @@ lo red_black_tree ::min_elem(RB_Node *node)
         return node->data;
     return min_elem(node->left);
 }
-lo red_black_tree ::max_elem(RB_Node *node)
+long long red_black_tree ::max_elem(RB_Node *node)
 {
     if (node == NULL)
         return -1;
@@ -66,9 +66,9 @@ lo red_black_tree ::max_elem(RB_Node *node)
     return max_elem(node->right);
 }
 
-lo red_black_tree ::extract_min()
+long long red_black_tree ::extract_min()
 {
-    lo x = min_elem(this->root);
+    long long x = min_elem(this->root);
     this->Erase(x);
     return x;
 }
@@ -99,11 +99,11 @@ void red_black_tree ::delete_one_child(RB_Node *node)
     else
         child = node->right;
     this->replace_node(node, child);
-    if (node->color == BLACK)
+    if (node->colong longr == BLACK)
     {
-        if (child->color == RED)
+        if (child->colong longr == RED)
         {
-            child->color = BLACK;
+            child->colong longr = BLACK;
         }
         else
         {
@@ -128,10 +128,10 @@ void red_black_tree ::delete_case2(RB_Node *node)
 {
     debug(node->data);
     auto sibling = this->sibling(node);
-    if (sibling->color == RED)
+    if (sibling->colong longr == RED)
     {
-        node->par->color = RED;
-        sibling->color = BLACK;
+        node->par->colong longr = RED;
+        sibling->colong longr = BLACK;
         if (node == node->par->left)
         {
             rotate_left(node->par);
@@ -148,11 +148,11 @@ void red_black_tree ::delete_case2(RB_Node *node)
 void red_black_tree ::delete_case3(RB_Node *node)
 {
     auto sibling = this->sibling(node);
-    debug4(node->data, node->color, sibling->data, sibling->color);
-    if (node->par->color == BLACK and sibling->color == BLACK and sibling->left->color == BLACK and sibling->right->color == BLACK)
+    debug4(node->data, node->colong longr, sibling->data, sibling->colong longr);
+    if (node->par->colong longr == BLACK and sibling->colong longr == BLACK and sibling->left->colong longr == BLACK and sibling->right->colong longr == BLACK)
     {
-        debug("case 3 sibling coloring 3");
-        sibling->color = RED;
+        debug("case 3 sibling colong longring 3");
+        sibling->colong longr = RED;
         this->traverse(this->root);
         this->delete_case1(node->par);
     }
@@ -164,10 +164,10 @@ void red_black_tree ::delete_case3(RB_Node *node)
 void red_black_tree ::delete_case4(RB_Node *node)
 {
     auto sibling = this->sibling(node);
-    if (node->par->color == RED and sibling->color == BLACK and sibling->left->color == BLACK and sibling->right->color == BLACK)
+    if (node->par->colong longr == RED and sibling->colong longr == BLACK and sibling->left->colong longr == BLACK and sibling->right->colong longr == BLACK)
     {
-        sibling->color = RED;
-        node->par->color = BLACK;
+        sibling->colong longr = RED;
+        node->par->colong longr = BLACK;
         // this->delete_case1(node->par);
     }
     else
@@ -182,18 +182,18 @@ void red_black_tree ::delete_case5(RB_Node *node)
         return;
     }
     auto sibling = this->sibling(node);
-    if (sibling->color == BLACK)
+    if (sibling->colong longr == BLACK)
     {
-        if (node == node->par->left and sibling->right->color == BLACK and sibling->left->color == RED)
+        if (node == node->par->left and sibling->right->colong longr == BLACK and sibling->left->colong longr == RED)
         {
-            sibling->color = RED;
-            sibling->left->color = BLACK;
+            sibling->colong longr = RED;
+            sibling->left->colong longr = BLACK;
             this->rotate_right(sibling);
         }
-        else if (node == node->par->right and sibling->left->color == BLACK and sibling->right->color == RED)
+        else if (node == node->par->right and sibling->left->colong longr == BLACK and sibling->right->colong longr == RED)
         {
-            sibling->color = RED;
-            sibling->right->color = BLACK;
+            sibling->colong longr = RED;
+            sibling->right->colong longr = BLACK;
             this->rotate_left(sibling);
         }
     }
@@ -202,16 +202,16 @@ void red_black_tree ::delete_case5(RB_Node *node)
 void red_black_tree ::delete_case6(RB_Node *node)
 {
     auto sibling = this->sibling(node);
-    sibling->color = node->par->color;
-    node->par->color = BLACK;
+    sibling->colong longr = node->par->colong longr;
+    node->par->colong longr = BLACK;
     if (node == node->par->left)
     {
-        sibling->right->color = BLACK;
+        sibling->right->colong longr = BLACK;
         rotate_left(node->par);
     }
     else
     {
-        sibling->left->color = BLACK;
+        sibling->left->colong longr = BLACK;
         rotate_right(node->par);
     }
 }
@@ -219,7 +219,7 @@ red_black_tree ::red_black_tree()
 {
     this->LEAF = new RB_Node(-1);
     this->root = NULL;
-    this->LEAF->color = BLACK;
+    this->LEAF->colong longr = BLACK;
     this->LEAF->par = this->LEAF->left = this->LEAF->right = this->LEAF;
 }
 RB_Node *red_black_tree ::parent(RB_Node *node)
@@ -233,8 +233,8 @@ RB_Node *red_black_tree ::grandparent(RB_Node *node)
 RB_Node *red_black_tree ::sibling(RB_Node *node)
 {
     // debug("I am in sibling");
-    // debug2(node->data, node->color);
-    // debug2(node->par->data, node->par->color);
+    // debug2(node->data, node->colong longr);
+    // debug2(node->par->data, node->par->colong longr);
     if (node->par == this->LEAF)
     {
         return this->LEAF;
@@ -250,15 +250,15 @@ RB_Node *red_black_tree ::sibling(RB_Node *node)
 RB_Node *red_black_tree ::uncle(RB_Node *node)
 {
     auto grand_par = this->grandparent(node);
-    debug3("fdfsdfsdfdsfdsfsdf", grand_par->data, grand_par->color);
+    debug3("fdfsdfsdfdsfdsfsdf", grand_par->data, grand_par->colong longr);
     if (grand_par == this->LEAF)
     {
         return this->LEAF;
     }
     auto parent = this->parent(node);
-    debug2(node->data, node->color);
+    debug2(node->data, node->colong longr);
     auto sibling = this->sibling(parent);
-    // debug2(sibling->data, sibling->color);
+    // debug2(sibling->data, sibling->colong longr);
     return sibling;
 }
 void red_black_tree ::rotate_left(RB_Node *node)
@@ -360,7 +360,7 @@ void red_black_tree ::insert_recurse(RB_Node *root, RB_Node *node)
     if (!node->par)
         node->par = this->LEAF;
     node->leaf = true;
-    node->color = RED;
+    node->colong longr = RED;
     node->left = node->right = this->LEAF;
 }
 void red_black_tree ::insert_repair_tree(RB_Node *node)
@@ -371,12 +371,12 @@ void red_black_tree ::insert_repair_tree(RB_Node *node)
         debug(1);
         insert_case1(node);
     }
-    else if (parent(node)->color == BLACK)
+    else if (parent(node)->colong longr == BLACK)
     {
         debug(2);
         insert_case2(node);
     }
-    else if (uncle(node)->color == RED)
+    else if (uncle(node)->colong longr == RED)
     {
         debug(3);
         insert_case3(node);
@@ -390,7 +390,7 @@ void red_black_tree ::insert_repair_tree(RB_Node *node)
 void red_black_tree ::insert_case1(RB_Node *node)
 {
     assert(parent(node) == this->LEAF);
-    node->color = BLACK;
+    node->colong longr = BLACK;
     return;
 }
 void red_black_tree ::insert_case2(RB_Node *node)
@@ -399,9 +399,9 @@ void red_black_tree ::insert_case2(RB_Node *node)
 }
 void red_black_tree ::insert_case3(RB_Node *node)
 {
-    parent(node)->color = BLACK;
-    uncle(node)->color = BLACK;
-    grandparent(node)->color = RED;
+    parent(node)->colong longr = BLACK;
+    uncle(node)->colong longr = BLACK;
+    grandparent(node)->colong longr = RED;
     insert_repair_tree(grandparent(node));
 }
 void red_black_tree ::insert_case4(RB_Node *node)
@@ -428,10 +428,10 @@ void red_black_tree ::insert_case4(RB_Node *node)
     {
         rotate_left(g);
     }
-    p->color = BLACK;
-    g->color = RED;
+    p->colong longr = BLACK;
+    g->colong longr = RED;
 }
-void red_black_tree ::Insert(lo n)
+void red_black_tree ::Insert(long long n)
 {
     auto node = new RB_Node(n);
     node->left = node->right = node->par = this->LEAF;
@@ -442,7 +442,7 @@ void red_black_tree ::traverse(RB_Node *node)
     // return;
     if (!node)
         return;
-    debug5(node->data, node->color, node->left->data, node->right->data, node->par->data);
+    debug5(node->data, node->colong longr, node->left->data, node->right->data, node->par->data);
     if (node->left != this->LEAF)
     {
         traverse(node->left);

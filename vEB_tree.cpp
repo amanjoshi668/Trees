@@ -1,29 +1,29 @@
 #include "vEB_tree.h"
-lo vEB_tree_min(vEB_Node *node)
+long long vEB_tree_min(vEB_Node *node)
 {
     if (node == NULL)
         return LLONG_MAX;
     return node->min_elem;
 }
-lo vEB_tree_min_cnt(vEB_Node *node)
+long long vEB_tree_min_cnt(vEB_Node *node)
 {
     if (node == NULL)
         return 0;
     return node->min_cnt;
 }
-lo vEB_tree_max_cnt(vEB_Node *node)
+long long vEB_tree_max_cnt(vEB_Node *node)
 {
     if (node == NULL)
         return 0;
     return node->max_cnt;
 }
-lo vEB_tree_max(vEB_Node *node)
+long long vEB_tree_max(vEB_Node *node)
 {
     if (node == NULL)
         return LLONG_MAX;
     return node->max_elem;
 }
-lo vEB_tree_member(vEB_Node *node, lo x)
+long long vEB_tree_member(vEB_Node *node, long long x)
 {
     if (node == NULL)
         return -1;
@@ -39,7 +39,7 @@ lo vEB_tree_member(vEB_Node *node, lo x)
         return -1;
     return vEB_tree_member(node->cluster[node->high(x)], node->low(x));
 }
-vEB_Node *vEB_empty_tree_insert(vEB_Node *node, lo x, lo cnt)
+vEB_Node *vEB_empty_tree_insert(vEB_Node *node, long long x, long long cnt )
 {
     node->min_elem = x;
     node->max_elem = x;
@@ -47,7 +47,7 @@ vEB_Node *vEB_empty_tree_insert(vEB_Node *node, lo x, lo cnt)
     node->max_cnt = cnt;
     return node;
 }
-vEB_Node *vEB_tree_insert(vEB_Node *node, lo x, lo cnt)
+vEB_Node *vEB_tree_insert(vEB_Node *node, long long x, long long cnt)
 {
     // debug6(node, node->u,node->min_elem,node->min_cnt, node->max_elem, node->max_cnt);
     if (node->min_elem == LLONG_MAX)
@@ -90,7 +90,6 @@ vEB_Node *vEB_tree_insert(vEB_Node *node, lo x, lo cnt)
             }
             else
             {
-                // node->summary = vEB_tree_insert(node->summary, node->high(x), cnt);
                 node->cluster[node->high(x)] = vEB_tree_insert(node->cluster[node->high(x)], node->low(x), cnt);
             }
         }
@@ -103,7 +102,7 @@ vEB_Node *vEB_tree_insert(vEB_Node *node, lo x, lo cnt)
     }
     return node;
 }
-vEB_Node *vEB_tree_delete(vEB_Node *node, lo x, lo cnt)
+vEB_Node *vEB_tree_delete(vEB_Node *node, long long x, long long cnt)
 {
     if (node == NULL)
         return node;

@@ -1,5 +1,5 @@
 #include "rb_tree.h"
-RB_Node ::RB_Node(lo d)
+RB_Node ::RB_Node(long long d)
 {
     this->data = d;
     this->leaf = true;
@@ -11,19 +11,19 @@ bool red_black_tree ::empty()
 {
     return this->root == NULL or this->root == this->LEAF;
 }
-lo red_black_tree ::predecessor(RB_Node *node)
+long long red_black_tree ::predecessor(RB_Node *node)
 {
     return this->min_elem(node->right);
 }
-lo red_black_tree ::successor(RB_Node *node)
+long long red_black_tree ::successor(RB_Node *node)
 {
     return this->max_elem(node->left);
 }
-void red_black_tree ::Erase(lo x)
+void red_black_tree ::Erase(long long x)
 {
     this->erase(this->root, x);
 }
-void red_black_tree ::erase(RB_Node *node, lo n)
+void red_black_tree ::erase(RB_Node *node, long long n)
 {
     if (node->left == this->LEAF and node->right == this->LEAF)
     {
@@ -49,7 +49,7 @@ void red_black_tree ::erase(RB_Node *node, lo n)
     }
     // return node;
 }
-lo red_black_tree ::min_elem(RB_Node *node)
+long long red_black_tree ::min_elem(RB_Node *node)
 {
     if (node == NULL)
         return -1;
@@ -57,7 +57,7 @@ lo red_black_tree ::min_elem(RB_Node *node)
         return node->data;
     return min_elem(node->left);
 }
-lo red_black_tree ::max_elem(RB_Node *node)
+long long red_black_tree ::max_elem(RB_Node *node)
 {
     if (node == NULL)
         return -1;
@@ -66,9 +66,9 @@ lo red_black_tree ::max_elem(RB_Node *node)
     return max_elem(node->right);
 }
 
-lo red_black_tree ::extract_min()
+long long red_black_tree ::extract_min()
 {
-    lo x = min_elem(this->root);
+    long long x = min_elem(this->root);
     this->Erase(x);
     return x;
 }
@@ -431,7 +431,7 @@ void red_black_tree ::insert_case4(RB_Node *node)
     p->color = BLACK;
     g->color = RED;
 }
-void red_black_tree ::Insert(lo n)
+void red_black_tree ::Insert(long long n)
 {
     auto node = new RB_Node(n);
     node->left = node->right = node->par = this->LEAF;
@@ -443,8 +443,6 @@ void red_black_tree ::traverse(RB_Node *node)
     if (!node)
         return;
     debug5(node->data, node->color, node->left->data, node->right->data, node->par->data);
-    // cout<<"data = "<<node->data<<"\tleft = "<<node->left->data<<"\tright = "<<node->right->data;
-    // cout<<"\tcolor = "<<node->color<<endl;
     if (node->left != this->LEAF)
     {
         traverse(node->left);

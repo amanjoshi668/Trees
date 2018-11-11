@@ -1,6 +1,5 @@
 #include "avl.h"
-AVL_Node ::AVL_Node(lo k)
-{
+AVL_Node :: AVL_Node( long long  k){
     this->value = k;
     this->height = 1;
     this->weight = 1;
@@ -45,21 +44,17 @@ AVL ::AVL()
 {
     this->root = NULL;
 }
-void AVL ::insert(lo x)
-{
+void AVL :: insert(long long x){
     this->root = this->insert(x, this->root);
 }
-void AVL ::erase(lo x)
-{
+void AVL :: erase(long long x){
     this->root = this->erase(x, this->root);
 }
-lo AVL ::Kth_minimum(lo x)
-{
+long long AVL :: Kth_minimum(long long x){
     return Kth_minimum(x, this->root);
 }
-bool okok = false;
-AVL_Node *AVL ::insert(lo x, AVL_Node *node)
-{
+bool okok =false;
+AVL_Node* AVL :: insert(long long x, AVL_Node* node){
     //if(node!=NULL and okok)cout<<"I was at"<<node->value<<endl;
     if (node == NULL)
     {
@@ -105,18 +100,14 @@ AVL_Node *AVL ::insert(lo x, AVL_Node *node)
     node->weight = weight(node->left) + weight(node->right) + 1;
     return node;
 }
-lo AVL ::height(AVL_Node *node)
-{
-    if (node == NULL)
-    {
+long long AVL :: height(AVL_Node *node){
+    if(node == NULL){
         return 0;
     }
     return node->height;
 }
-lo AVL ::weight(AVL_Node *node)
-{
-    if (node == NULL)
-    {
+long long AVL :: weight(AVL_Node *node){
+    if(node == NULL){
         return 0;
     }
     return node->weight;
@@ -185,8 +176,7 @@ AVL_Node *AVL ::successor(AVL_Node *node)
     }
     return node;
 }
-AVL_Node *AVL ::erase(lo x, AVL_Node *node)
-{
+AVL_Node* AVL :: erase(long long x, AVL_Node *node){
     //if(okok)cerr<<x<<" "<<node->value<<endl;
     AVL_Node *to_delete;
     if (node == NULL)
@@ -263,8 +253,7 @@ AVL_Node *AVL ::erase(lo x, AVL_Node *node)
     node->weight = weight(node->left) + weight(node->right) + 1;
     return node;
 }
-lo AVL ::Kth_minimum(lo k, AVL_Node *node)
-{
+long long AVL :: Kth_minimum(long long k, AVL_Node *node){
     //cout<<node->value<<" "<<node->weight<<endl;
     if (node == NULL)
     {
@@ -284,14 +273,11 @@ lo AVL ::Kth_minimum(lo k, AVL_Node *node)
     }
     return -1;
 }
-lo AVL ::search(lo k)
-{
+long long AVL :: search(long long k){
     return search(k, this->root);
 }
-lo AVL ::search(lo k, AVL_Node *node)
-{
-    if (node == NULL)
-    {
+long long AVL :: search(long long k, AVL_Node *node){
+    if(node == NULL){
         return false;
     }
     else if (node->value == k)

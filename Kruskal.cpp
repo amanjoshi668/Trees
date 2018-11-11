@@ -1,6 +1,7 @@
 #include "avl.h"
 #include "rb_tree.h"
 #include "vEB_tree.h"
+// #include "RBTree.h"
 struct Edges
 {
     long long u, v;
@@ -29,10 +30,11 @@ long long const N = 65536;
 long long const WEIGHT = 100000;
 int main()
 {
-    cerr << "Enter the number of vertices : ";
+    freopen("input.txt", "a", stderr);
+    // cerr << "Enter the number of vertices : ";
     long long n, m;
     cin >> n ;
-    cerr<<"Eneter number of edges : ";
+    // cerr<<"Eneter number of edges : ";
     cin>> m;
     vector<Edges> edges;
     vector<vector<ll>> edges_avl(N), edges_vEB(N), edges_RB(N), edges_RB_my(N);
@@ -48,7 +50,8 @@ int main()
         edges_RB_my[w].pb(mp(u, v));
     }
     UnionFind avl_set(n), rb_set(n), vEB_set(n), rb_my_set(n);
-    cerr << "##########    AVL    #######" << endl;
+    cerr<<m<<endl;
+    // cerr << "##########    AVL    #######" << endl;
     auto start = std::chrono::system_clock::now();
     AVL avl_tree;
     TRV(edges)
@@ -74,9 +77,9 @@ int main()
     auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cerr << ans << " " << elapsed.count() << '\n';
 
-    cerr << "##########    RB Tree    #######" << endl;
+    // cerr << "##########    RB Tree    #######" << endl;
     start = std::chrono::system_clock::now();
-    multiset<lo> rb_tree;
+    multiset <lo> rb_tree;
     TRV(edges)
     {
         rb_tree.insert(it.wieght);
@@ -98,7 +101,7 @@ int main()
     elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cerr << ans << " " << elapsed.count() << '\n';
 
-    cerr << "##########    RB Tree My   #######" << endl;
+    // cerr << "##########    RB Tree My   #######" << endl;
     start = std::chrono::system_clock::now();
     red_black_tree rb_my_tree;
     TRV(edges)
@@ -121,7 +124,7 @@ int main()
     elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cerr << ans << " " << elapsed.count() << '\n';
 
-    cerr << "##########    vEB Tree    #######" << endl;
+    // cerr << "##########    vEB Tree    #######" << endl;
     start = std::chrono::system_clock::now();
     auto root = new vEB_Node(N*N);
     TRV(edges)

@@ -7,6 +7,18 @@ RB_Node ::RB_Node(long long d)
     this->black_height = 1;
     this->par = this->left = this->right = NULL;
 }
+void red_black_tree ::traverse()
+{
+    this->traverse(this->root);
+}
+long long red_black_tree ::min()
+{
+    return this->min_elem(this->root);
+}
+long long red_black_tree ::max()
+{
+    return this->max_elem(this->root);
+}
 bool red_black_tree ::empty()
 {
     return this->root == NULL or this->root == this->LEAF;
@@ -25,7 +37,8 @@ void red_black_tree ::Erase(long long x)
 }
 void red_black_tree ::erase(RB_Node *node, long long n)
 {
-    if(node == this->LEAF or node == NULL)return;
+    if (node == this->LEAF or node == NULL)
+        return;
     else if (node->data < n)
     {
         erase(node->right, n);
@@ -43,18 +56,17 @@ void red_black_tree ::erase(RB_Node *node, long long n)
     //     node->data = predecessor(node);
     //     erase(node->right, node->data);
     // }
-    else 
+    else
     {
         node->data = this->successor(node);
         erase(node->left, node->data);
     }
-    
-    
+
     // return node;
 }
 long long red_black_tree ::min_elem(RB_Node *node)
 {
-    if (node == NULL or node== this->LEAF)
+    if (node == NULL or node == this->LEAF)
         return -1;
     if (node->left == this->LEAF)
         return node->data;
@@ -92,17 +104,20 @@ void red_black_tree ::delete_one_child(RB_Node *node)
     debug(node);
     if (node == this->root)
     {
-        if(node->left != this->LEAF){
+        if (node->left != this->LEAF)
+        {
             this->root = node->left;
             this->root->color = BLACK;
             this->root->par = NULL;
         }
-        else if(node->right != this->LEAF){
+        else if (node->right != this->LEAF)
+        {
             this->root = node->right;
             this->root->color = BLACK;
             this->root->par = NULL;
         }
-        else this->root = NULL;
+        else
+            this->root = NULL;
         delete node;
         return;
     }
@@ -134,7 +149,7 @@ void red_black_tree ::delete_one_child(RB_Node *node)
 void red_black_tree ::delete_case1(RB_Node *node)
 {
     debug4("In delete 1", node->data, node->par->data, (node->par == this->LEAF));
-    if (node->par != NULL and node ->par != this->LEAF)
+    if (node->par != NULL and node->par != this->LEAF)
     {
         debug3(node->par->data, node->left->data, node->right->data);
         this->delete_case2(node);
@@ -279,7 +294,7 @@ RB_Node *red_black_tree ::uncle(RB_Node *node)
 }
 void red_black_tree ::rotate_left(RB_Node *node)
 {
-    assert(node != NULL or node!= this->LEAF);
+    assert(node != NULL or node != this->LEAF);
     auto new_node = node->right;
     auto p = this->parent(node);
     assert(new_node != this->LEAF);
@@ -352,7 +367,7 @@ RB_Node *red_black_tree ::insert(RB_Node *root, RB_Node *node)
 }
 void red_black_tree ::insert_recurse(RB_Node *root, RB_Node *node)
 {
-    if (root != this->LEAF and root!=NULL and node->data < root->data)
+    if (root != this->LEAF and root != NULL and node->data < root->data)
     {
         if (root->left != this->LEAF)
         {
@@ -362,7 +377,7 @@ void red_black_tree ::insert_recurse(RB_Node *root, RB_Node *node)
         else
             root->left = node;
     }
-    else if (root != NULL and root!=this->LEAF)
+    else if (root != NULL and root != this->LEAF)
     {
         if (root->right != this->LEAF)
         {

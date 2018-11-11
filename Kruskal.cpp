@@ -30,19 +30,19 @@ long long const N = 65536;
 long long const WEIGHT = 100000;
 int main()
 {
-    freopen("input.txt", "a", stderr);
+    // freopen("input.txt", "a", stderr);
     // cerr << "Enter the number of vertices : ";
     long long n, m;
-    cin >> n ;
+    cin >> n;
     // cerr<<"Eneter number of edges : ";
-    cin>> m;
+    cin >> m;
     vector<Edges> edges;
     vector<vector<ll>> edges_avl(N), edges_vEB(N), edges_RB(N), edges_RB_my(N);
     REP(0, m)
     {
         long long u = rand() % n + 1;
         long long v = rand() % n + 1;
-        long long w = rand() % (N-100) + 1;
+        long long w = rand() % (N - 100) + 1;
         edges.pb(Edges(u, v, w));
         edges_avl[w].pb(mp(u, v));
         edges_vEB[w].pb(mp(u, v));
@@ -50,7 +50,7 @@ int main()
         edges_RB_my[w].pb(mp(u, v));
     }
     UnionFind avl_set(n), rb_set(n), vEB_set(n), rb_my_set(n);
-    cerr<<m<<endl;
+    cerr << m << endl;
     // cerr << "##########    AVL    #######" << endl;
     auto start = std::chrono::system_clock::now();
     AVL avl_tree;
@@ -79,7 +79,7 @@ int main()
 
     // cerr << "##########    RB Tree    #######" << endl;
     start = std::chrono::system_clock::now();
-    multiset <lo> rb_tree;
+    multiset<lo> rb_tree;
     TRV(edges)
     {
         rb_tree.insert(it.wieght);
@@ -126,18 +126,15 @@ int main()
 
     // cerr << "##########    vEB Tree    #######" << endl;
     start = std::chrono::system_clock::now();
-    auto root = new vEB_Node(N*N);
+    vEB_tree veb_tree(N);
     TRV(edges)
     {
-        root = vEB_tree_insert(root, it.wieght, 1);
+        veb_tree.insert(it.wieght);
     }
     ans = 0;
-    while (vEB_tree_min(root) != LLONG_MAX)
+    while (!veb_tree.empty())
     {
-        auto w = vEB_tree_min(root);
-        root = vEB_tree_delete(root, w, 1);
-        if (edges_vEB[w].empty())
-            cerr << "I am bug" << endl;
+        auto w = veb_tree.extract_min();
         auto edge_to_relax = edges_vEB[w].back();
         edges_vEB[w].pop_back();
         if (!vEB_set.is_sameSet(edge_to_relax.X, edge_to_relax.Y))

@@ -29,11 +29,25 @@ struct vEB_Node
         this->cluster.resize(this->u + 1, NULL);
     }
 };
-long long vEB_tree_min(vEB_Node *node);
-long long vEB_tree_min_cnt(vEB_Node *node);
-long long vEB_tree_max_cnt(vEB_Node *node);
-long long vEB_tree_max(vEB_Node *node);
-long long vEB_tree_member(vEB_Node *node, long long x);
-vEB_Node *vEB_empty_tree_insert(vEB_Node *node, long long x, long long cnt);
-vEB_Node *vEB_tree_insert(vEB_Node *node, long long x, long long cnt);
-vEB_Node *vEB_tree_delete(vEB_Node *node, long long x, long long cnt);
+class vEB_tree
+{
+    vEB_Node *root;
+    lo u;
+    long long vEB_tree_min(vEB_Node *node);
+    long long vEB_tree_min_cnt(vEB_Node *node);
+    long long vEB_tree_max_cnt(vEB_Node *node);
+    long long vEB_tree_max(vEB_Node *node);
+    long long vEB_tree_member(vEB_Node *node, long long x);
+    vEB_Node *vEB_empty_tree_insert(vEB_Node *node, long long x, long long cnt);
+    vEB_Node *vEB_tree_insert(vEB_Node *node, long long x, long long cnt);
+    vEB_Node *vEB_tree_delete(vEB_Node *node, long long x, long long cnt);
+
+  public:
+    void insert(long long n);
+    void erase(long long n);
+    long long extract_min();
+    vEB_tree(long long u);
+    bool empty();
+    long long min();
+    long long max();
+};

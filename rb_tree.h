@@ -15,7 +15,7 @@ struct RB_Node
     RB_Node *right;
     RB_Node(long long);
 };
-struct red_black_tree
+class red_black_tree
 {
     RB_Node *root;
     RB_Node *LEAF;
@@ -32,8 +32,6 @@ struct red_black_tree
     void insert_case2(RB_Node *);
     void insert_case3(RB_Node *);
     void insert_case4(RB_Node *);
-    void Insert(long long n);
-    red_black_tree();
     void replace_node(RB_Node *node, RB_Node *child);
     void delete_one_child(RB_Node *node);
     void delete_case1(RB_Node *node);
@@ -42,13 +40,20 @@ struct red_black_tree
     void delete_case4(RB_Node *node);
     void delete_case5(RB_Node *node);
     void delete_case6(RB_Node *node);
-    long long extract_min();
     long long min_elem(RB_Node *node);
     long long predecessor(RB_Node *node);
-    void erase(RB_Node *node, long long n);
-    void Erase(long long n);
-    void traverse(RB_Node *node);
-    bool empty();
     long long max_elem(RB_Node *node);
-    long long successor(RB_Node* node);
+    long long successor(RB_Node *node);
+    void erase(RB_Node *node, long long n);
+    void traverse(RB_Node *node);
+
+  public:
+    void Erase(long long n);
+    bool empty();
+    long long min();
+    long long max();
+    void traverse();
+    long long extract_min();
+    red_black_tree();
+    void Insert(long long n);
 };
